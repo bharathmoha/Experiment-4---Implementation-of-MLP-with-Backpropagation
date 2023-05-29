@@ -119,6 +119,64 @@ Normalize our dataset.
 
 ## PROGRAM 
 
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder,StandardScaler
+from sklearn.neural_network import MLPClassifier
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+
+df = pd.read_csv("iris.csv")
+df
+
+X = df[['sepal_length', 'sepal_width', 'petal_length', 'petal_width']]
+  
+y = df[['species']]
+
+X.head()
+
+y.head()
+
+print(y.unique())
+le = LabelEncoder()
+y = le.fit_transform(y)
+
+
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.20)
+
+
+
+scaler = StandardScaler()  
+scaler.fit(X_train)
+
+X_train = scaler.transform(X_train)  
+X_test = scaler.transform(X_test)
+Creating MLP and classifing
+mlp = MLPClassifier(hidden_layer_sizes=(10, 10, 10), max_iter=1000)  
+mlp.fit(X_train, y_train)  
+predictions = mlp.predict(X_test) 
+
+
+print(predictions)
+
+
+accuracy_score(y_test,predictions)
+Confusion Matrix
+print(confusion_matrix(y_test,predictions))
+Classification Report
+print(classification_report(y_test,predictions))
 ## OUTPUT 
+![234027881-90e05ec1-4e9b-4532-a9a0-c3a59627890b](https://github.com/bharathmoha/Experiment-4---Implementation-of-MLP-with-Backpropagation/assets/93394006/4a8b567d-f005-4259-980d-6c4c5d7c195e)
+
+![234028114-01de47a1-aabb-4088-81cd-9c1ea8f4f3b5](https://github.com/bharathmoha/Experiment-4---Implementation-of-MLP-with-Backpropagation/assets/93394006/b8620fbe-293a-46bb-a3b4-7b4c0dc65d02)
+![234028195-11e511c9-5131-45b0-8bba-bc683646b159](https://github.com/bharathmoha/Experiment-4---Implementation-of-MLP-with-Backpropagation/assets/93394006/68eef323-c2f4-42cc-877a-e4617560fed1)
+![234028678-3720b2c5-6d2e-42e0-938b-a0eb1c80b963](https://github.com/bharathmoha/Experiment-4---Implementation-of-MLP-with-Backpropagation/assets/93394006/58915f8f-0fae-462d-a113-8fc236fb18cf)
+![234028617-df1509e5-a770-412a-8b59-741b62dcfe11](https://github.com/bharathmoha/Experiment-4---Implementation-of-MLP-with-Backpropagation/assets/93394006/90444eed-af67-4c88-8e04-82563b6bd56d)
+![234028875-d3e66d97-eae8-422c-ae2f-9a01159fc3ae](https://github.com/bharathmoha/Experiment-4---Implementation-of-MLP-with-Backpropagation/assets/93394006/4767fa2f-a87f-45e5-9e31-d2df187fe59f)
+
+
+
 
 ## RESULT
+Thus a Multilayer Perceptron with Backpropagation is implemented for Multi classification
+
